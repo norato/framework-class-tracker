@@ -1,37 +1,18 @@
-import fs from 'fs';
-import path from 'path';
 import { describe, expect, it } from 'vitest';
-import { extractFrameworkClassesFromCss } from '../../src/analyzers/frameworkAnalyzer';
+import { extractClassesFromFramework } from '../../src/analyzers/frameworkAnalyzer';
 
-describe('extractFrameworkClassesFromCss', () => {
-  const cssPath = path.resolve(__dirname, '__fixtures__/mock-framework.css');
+describe('extractClassesFromFramework', () => {
+  it('should extract classes from bootstrap installed via node_modules', () => {
+    const result = extractClassesFromFramework({ framework: 'bootstrap' });
 
-  beforeAll(() => {
-    const mockCss = `
-      .btn { color: red; }
-      .btn-primary:hover { background: blue; }
-      .d-block, .mt-2 { display: block; }
-      .col-12[class] { width: 100%; }
-    `;
-    fs.mkdirSync(path.dirname(cssPath), { recursive: true });
-    fs.writeFileSync(cssPath, mockCss);
+    expect(result.has('btn')).toBe(true);
+    expect(result.has('container')).toBe(true);
+    expect(result.has('row')).toBe(true);
   });
 
-  afterAll(() => {
-    fs.rmSync(path.dirname(cssPath), { recursive: true, force: true });
-  });
-
-  it('should extract all unique class names from CSS content', () => {
-    const result = extractFrameworkClassesFromCss(cssPath);
-
-    expect(result).toEqual(
-      new Set(['btn', 'btn-primary', 'd-block', 'mt-2', 'col-12'])
-    );
-  });
-
-  it('should throw an error if the CSS file does not exist', () => {
-    expect(() => extractFrameworkClassesFromCss('non-existent.css')).toThrow(
-      /CSS file not found/
-    );
+  it('should throw if framework is not supported', () => {
+    expect(() =>
+      extractClassesFromFramework({ framework: 'bulma' as any })
+    ).toThrow(/Unsupported framework/);
   });
 });

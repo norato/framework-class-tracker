@@ -37,4 +37,18 @@ describe('generateTextReport', () => {
 
     expect(fs.existsSync(reportPath)).toBe(true);
   });
+
+  it('should create the directory if it does not exist', () => {
+    const customDir = path.join(basePath, 'non-existent-folder');
+    const outputPath = path.join(customDir, 'report.txt');
+
+    if (fs.existsSync(customDir)) fs.rmSync(customDir, { recursive: true });
+
+    generateTextReport(['custom-class'], outputPath, 'Title');
+
+    const content = fs.readFileSync(outputPath, 'utf-8');
+
+    expect(fs.existsSync(outputPath)).toBe(true);
+    expect(content).toContain('custom-class');
+  });
 });

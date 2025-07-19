@@ -1,21 +1,24 @@
-import fs from 'fs';
+import path from 'path';
+import { extractFrameworkClassesFromCss } from './extractFrameworkClassesFromCss';
 
-export function extractFrameworkClassesFromCss(cssPath: string): Set<string> {
-  if (!fs.existsSync(cssPath)) {
-    throw new Error(`CSS file not found at path: ${cssPath}`);
+export function extractClassesFromFramework(options: {
+  framework: 'bootstrap' | 'tailwind';
+  cssPath?: string;
+}): Set<string> {
+  const { framework, cssPath } = options;
+
+  const resolvedCssPath = cssPath ?? resolveCssPathFromNodeModules(framework);
+
+  return extractFrameworkClassesFromCss(resolvedCssPath);
+}
+
+function resolveCssPathFromNodeModules(framework: string): string {
+  switch (framework) {
+    case 'bootstrap':
+      return path.resolve('node_modules/bootstrap/dist/css/bootstrap.min.css');
+    case 'tailwind':
+      return path.resolve('node_modules/tailwindcss/tailwind.css');
+    default:
+      throw new Error(`Unsupported framework: ${framework}`);
   }
-
-  const cssContent = fs.readFileSync(cssPath, 'utf-8');
-
-  // Match patterns like `.btn`, `.d-block`, `.col-12`
-  const classRegex = /\.([a-zA-Z0-9_-]+)/g;
-
-  const classes = new Set<string>();
-  let match;
-
-  while ((match = classRegex.exec(cssContent))) {
-    classes.add(match[1]);
-  }
-
-  return classes;
 }
