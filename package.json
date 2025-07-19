@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest run --coverage",
-    "test:watch": "vitest"
+    "test:watch": "vitest --coverage"
   },
   "keywords": [],
   "author": "",
