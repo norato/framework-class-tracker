@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { scanFiles } from '../src/utils/scanFiles';
+import { scanFiles } from '../../src/utils/scanFiles';
 
 describe('scanFiles', () => {
   const basePath = path.resolve(__dirname, '__fixtures__/scan');

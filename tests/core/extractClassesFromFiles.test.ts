@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { describe, expect, it } from 'vitest';
-import { extractClassesFromFiles } from '../src/core/extractClassesFromFiles';
+import { extractClassesFromFiles } from '../../src/core/extractClassesFromFiles';
 
 describe('extractClassesFromFiles', () => {
   const basePath = path.resolve(__dirname, '__fixtures__/extract');

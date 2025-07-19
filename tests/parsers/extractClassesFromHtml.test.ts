@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { extractClassesFromHtml } from '../src/parsers/htmlParser';
+import { extractClassesFromHtml } from '../../src/parsers/htmlParser';
 
 describe('extractClassesFromHtml', () => {
   it('should extract multiple classes from class attribute', () => {
