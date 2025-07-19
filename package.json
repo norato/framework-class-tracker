@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest run",
+    "test": "vitest run --coverage",
     "test:watch": "vitest"
   },
   "keywords": [],
@@ -13,6 +13,8 @@
   "type": "module",
   "packageManager": "pnpm@10.13.1",
   "devDependencies": {
+    "@types/node": "^24.0.15",
+    "@vitest/coverage-v8": "3.2.4",
     "commander": "^14.0.0",
     "eslint": "^9.31.0",
     "prettier": "^3.6.2",
