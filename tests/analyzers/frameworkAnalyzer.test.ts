@@ -1,10 +1,11 @@
-import fs from 'fs';
 import path from 'path';
 import { describe, expect, it } from 'vitest';
 import { extractClassesFromFramework } from '../../src/analyzers/frameworkAnalyzer';
 
-const cssFile = path.join(__dirname, '__fixtures__/single.css');
-const cssDir = path.join(__dirname, '__fixtures__/multi');
+const fixtureDir = path.resolve(__dirname, '../../fixtures/css');
+
+const cssFile = path.join(fixtureDir, 'single.css');
+const cssDir = path.join(fixtureDir, 'multi');
 
 describe('extractClassesFromFramework', () => {
   it('should extract classes from bootstrap installed via node_modules', () => {
@@ -51,17 +52,13 @@ describe('extractClassesFromFramework', () => {
   });
 
   it('should throw if path is neither file nor folder', () => {
-    const txtPath = path.join(__dirname, '__fixtures__/invalid.txt');
-
-    fs.writeFileSync(txtPath, 'not a css file');
+    const invalidTxt = path.resolve(__dirname, '../../fixtures/invalid.txt');
 
     expect(() =>
       extractClassesFromFramework({
         framework: 'bootstrap',
-        frameworkPath: txtPath,
+        frameworkPath: invalidTxt,
       })
     ).toThrow(/Invalid framework path/);
-
-    fs.rmSync(txtPath);
   });
 });

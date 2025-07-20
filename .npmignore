@@ -1,0 +1,18 @@
+# Ignore source and test files
+src/
+tests/
+coverage/
+*.test.ts
+
+# Ignore configs and tooling
+.vscode/
+.env
+.env.*
+node_modules/
+*.log
+.prettier*
+.eslintrc*
+.npmrc
+
+# Keep README.md
+# (intentionally not ignored)

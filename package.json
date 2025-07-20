@@ -1,8 +1,8 @@
 {
   "name": "framework-class-tracker",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "CLI tool to analyze and report used CSS classes in your project compared to framework classes (e.g., Bootstrap).",
+  "main": "dist/index.js",
   "bin": {
     "framework-class-tracker": "dist/index.js"
   },
@@ -11,10 +11,26 @@
     "test:watch": "vitest --coverage",
     "build": "tsup"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "css",
+    "bootstrap",
+    "cli",
+    "class-tracker",
+    "framework",
+    "utility-classes",
+    "optimization"
+  ],
+  "author": "Felipe Norato Lacerda",
+  "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/norato/framework-class-tracker"
+  },
+  "bugs": {
+    "url": "https://github.com/norato/framework-class-tracker/issues"
+  },
+  "homepage": "https://github.com/norato/framework-class-tracker#readme",
   "packageManager": "pnpm@10.13.1",
   "devDependencies": {
     "@types/node": "^24.0.15",
