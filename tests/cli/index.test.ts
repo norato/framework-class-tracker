@@ -57,7 +57,7 @@ describe('CLI', () => {
     });
     expect(reporter.generateTextReport).toHaveBeenCalledWith(
       ['btn', 'mt-2'],
-      'framework-report.txt',
+      expect.stringContaining('framework-report.txt'),
       'bootstrap classes'
     );
   });
@@ -67,7 +67,9 @@ describe('CLI', () => {
 
     await expect(import('../../src/cli/index')).rejects.toThrow('process.exit');
 
-    expect(errorSpy).toHaveBeenCalledWith('Missing --src argument');
+    expect(errorSpy).toHaveBeenCalledWith(
+      expect.stringContaining('Missing --src argument')
+    );
     expect(exitSpy).toHaveBeenCalledWith(1);
     expect(scan.scanFiles).not.toHaveBeenCalled();
     expect(extract.extractClassesFromFiles).not.toHaveBeenCalled();

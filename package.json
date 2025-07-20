@@ -3,9 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "bin": {
+    "framework-class-tracker": "dist/index.js"
+  },
   "scripts": {
     "test": "vitest run --coverage",
-    "test:watch": "vitest --coverage"
+    "test:watch": "vitest --coverage",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "",

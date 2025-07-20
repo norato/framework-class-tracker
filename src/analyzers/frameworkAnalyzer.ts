@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import { extractFrameworkClassesFromCss } from './extractFrameworkClassesFromCss';
 
@@ -6,21 +7,57 @@ export type SupportedFramework = 'bootstrap';
 
 export function extractClassesFromFramework(options: {
   framework: SupportedFramework;
-  cssPath?: string;
+  frameworkPath?: string;
 }): Set<string> {
-  const { framework, cssPath } = options;
+  const { framework, frameworkPath } = options;
 
-  const resolvedCssPath = cssPath ?? resolveCssPathFromNodeModules(framework);
+  const resolvedPaths = resolveFrameworkPaths(framework, frameworkPath);
 
-  return extractFrameworkClassesFromCss(resolvedCssPath);
+  const combined = new Set<string>();
+
+  for (const filePath of resolvedPaths) {
+    const classes = extractFrameworkClassesFromCss(filePath);
+    classes.forEach((cls) => combined.add(cls));
+  }
+
+  return combined;
 }
 
-function resolveCssPathFromNodeModules(framework: string): string {
+function resolveFrameworkPaths(
+  framework: string,
+  customPath?: string
+): string[] {
+  if (customPath) {
+    const absolutePath = path.resolve(process.cwd(), customPath);
+
+    if (!fs.existsSync(absolutePath)) {
+      throw new Error(`Framework path not found: ${absolutePath}`);
+    }
+
+    const stats = fs.statSync(absolutePath);
+    if (stats.isFile() && absolutePath.endsWith('.css')) {
+      return [absolutePath];
+    }
+
+    if (stats.isDirectory()) {
+      return fs
+        .readdirSync(absolutePath)
+        .filter((file) => file.endsWith('.css'))
+        .map((file) => path.join(absolutePath, file));
+    }
+
+    throw new Error(
+      `Invalid framework path: must be a CSS file or a directory with CSS files`
+    );
+  }
+
   switch (framework) {
     case 'bootstrap':
-      return path.resolve('node_modules/bootstrap/dist/css/bootstrap.min.css');
+      return [
+        path.resolve('node_modules/bootstrap/dist/css/bootstrap.min.css'),
+      ];
     // case 'tailwind':
-    //   return path.resolve('node_modules/tailwindcss/tailwind.css');
+    //   return [path.resolve('node_modules/tailwindcss/tailwind.css')];
     default:
       throw new Error(`Unsupported framework: ${framework}`);
   }

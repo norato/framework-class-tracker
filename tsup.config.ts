@@ -1,10 +1,13 @@
-// tsup.config.ts
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/cli.ts'],
+  entry: ['src/cli/index.ts'],
+  outDir: 'dist',
+  target: 'node18',
   format: ['esm'],
-  dts: true,
-  splitting: false,
   clean: true,
+  splitting: false,
+  dts: true,
+  shims: false,
+  minify: false,
 });
