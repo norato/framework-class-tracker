@@ -2,6 +2,7 @@
   "conventionalCommits.scopes": [
     "core",
     "reporter",
-    "analyzer"
+    "analyzer",
+    "cli"
   ]
 }
