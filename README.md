@@ -101,11 +101,10 @@ To build the project:
 pnpm build
 ```
 
-To test locally in another project:
+To test locally in another project, you can use the `link` script. It will build the project and create a global symlink so you can run the command in any directory.
 
 ```bash
-pnpm build
-npm link
+pnpm run link
 
 # Then, in another repository:
 framework-class-tracker --src=./src --reporter=lint
