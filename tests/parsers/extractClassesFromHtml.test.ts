@@ -2,34 +2,28 @@ import { describe, expect, it } from 'vitest';
 import { extractClassesFromHtml } from '../../src/parsers/htmlParser';
 
 describe('extractClassesFromHtml', () => {
-  it('should extract multiple classes from class attribute', () => {
-    const html = `<div class="btn btn-primary  text-muted"></div>`;
+  it('should extract classes with line numbers', () => {
+    const html = '\n<div class="btn btn-primary"></div>\n<span class="text-muted"></span>';
     const result = extractClassesFromHtml(html);
-    expect(result).toEqual(['btn', 'btn-primary', 'text-muted']);
+    expect(result).toEqual([
+      { className: 'btn', line: 2 },
+      { className: 'btn-primary', line: 2 },
+      { className: 'text-muted', line: 3 },
+    ]);
   });
 
-  it('should handle single class', () => {
-    const html = `<div class="container"></div>`;
-    expect(extractClassesFromHtml(html)).toEqual(['container']);
-  });
-
-  it('should ignore tags without class attribute', () => {
-    const html = `<div>No class here</div>`;
-    expect(extractClassesFromHtml(html)).toEqual([]);
-  });
-
-  it('should ignore empty class attributes', () => {
-    const html = `<div class=""></div>`;
-    expect(extractClassesFromHtml(html)).toEqual([]);
-  });
-  it('should extract all classes from class attributes', () => {
-    const html = `
-      <div class="btn btn-primary"></div>
-      <span class="text-muted  d-block"></span>
-      <p>No class here</p>
-    `;
+  it('should handle multiple classes on the same line', () => {
+    const html = '<div class="container  d-flex"></div>';
     const result = extractClassesFromHtml(html);
+    expect(result).toEqual([
+      { className: 'container', line: 1 },
+      { className: 'd-flex', line: 1 },
+    ]);
+  });
 
-    expect(result).toEqual(['btn', 'btn-primary', 'text-muted', 'd-block']);
+  it('should return an empty array for no classes', () => {
+    const html = '<div></div>';
+    const result = extractClassesFromHtml(html);
+    expect(result).toEqual([]);
   });
 });

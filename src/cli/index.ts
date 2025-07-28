@@ -6,6 +6,7 @@ import {
   SupportedFramework,
 } from '../analyzers/frameworkAnalyzer';
 import { extractClassesFromFiles } from '../core/extractClassesFromFiles';
+import { generateLintStyleReport } from '../reporters/lintStyleReporter';
 import { generateTextReport } from '../reporters/textReporter';
 import { abort, getArgValue, logStep } from '../utils/cli-utils';
 import { scanFiles } from '../utils/scanFiles';
@@ -14,6 +15,7 @@ const src = getArgValue('src');
 const framework = (getArgValue('framework') ??
   'bootstrap') as SupportedFramework;
 const frameworkPath = getArgValue('frameworkPath');
+const reporter = getArgValue('reporter') ?? 'text';
 
 if (!src) {
   abort('Missing --src argument');
@@ -32,12 +34,19 @@ const frameworkClasses = extractClassesFromFramework({
 });
 
 logStep(`Matching used classes against framework classes...`);
-const matched = usedClasses.filter((cls) => frameworkClasses.has(cls));
+const matchedClasses = usedClasses.filter((cls) =>
+  frameworkClasses.has(cls.className)
+);
 
 logStep(`Generating report...`);
 
-const reportPath = path.resolve(`framework-report.txt`);
-generateTextReport(matched, reportPath, `${framework} classes`);
+if (reporter === 'lint') {
+  generateLintStyleReport(matchedClasses);
+} else {
+  const reportPath = path.resolve(`framework-report.txt`);
+  const classNames = matchedClasses.map((cls) => cls.className);
+  generateTextReport(classNames, reportPath, `${framework} classes`);
+  logStep(`Report generated at: ${reportPath}`);
+}
 
-logStep(`Done! Found ${matched.length} used ${framework} classes.`);
-logStep(`Report generated at: ${reportPath}`);
+logStep(`Done! Found ${matchedClasses.length} used ${framework} classes.`);

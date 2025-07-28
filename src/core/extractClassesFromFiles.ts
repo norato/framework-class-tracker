@@ -1,8 +1,15 @@
 import fs from 'fs';
 import path from 'path';
-import { extractClassesFromHtml } from '../parsers/htmlParser';
+import {
+  extractClassesFromHtml,
+  type ClassLocation,
+} from '../parsers/htmlParser';
 
-type ParserFunction = (code: string) => string[];
+export interface ClassUsage extends ClassLocation {
+  file: string;
+}
+
+type ParserFunction = (code: string) => ClassLocation[];
 
 const extensionParsers: Record<string, ParserFunction> = {
   '.html': extractClassesFromHtml,
@@ -10,8 +17,8 @@ const extensionParsers: Record<string, ParserFunction> = {
   // '.scss': extractClassesFromScss,
 };
 
-export function extractClassesFromFiles(filePaths: string[]): string[] {
-  const allClasses = new Set<string>();
+export function extractClassesFromFiles(filePaths: string[]): ClassUsage[] {
+  const allClassUsages: ClassUsage[] = [];
 
   for (const file of filePaths) {
     const ext = path.extname(file);
@@ -19,9 +26,12 @@ export function extractClassesFromFiles(filePaths: string[]): string[] {
     if (!parser) continue;
 
     const code = fs.readFileSync(file, 'utf-8');
-    const classes = parser(code);
-    classes.forEach((cls) => allClasses.add(cls));
+    const classLocations = parser(code);
+
+    for (const location of classLocations) {
+      allClassUsages.push({ ...location, file });
+    }
   }
 
-  return Array.from(allClasses).sort();
+  return allClassUsages;
 }

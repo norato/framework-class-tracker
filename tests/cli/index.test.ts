@@ -9,7 +9,10 @@ vi.mock('../../src/utils/scanFiles', () => ({
 }));
 
 vi.mock('../../src/core/extractClassesFromFiles', () => ({
-  extractClassesFromFiles: vi.fn(() => ['btn', 'mt-2']),
+  extractClassesFromFiles: vi.fn(() => [
+    { className: 'btn', file: 'file1.html', line: 1 },
+    { className: 'mt-2', file: 'file1.html', line: 2 },
+  ]),
 }));
 
 vi.mock('../../src/analyzers/frameworkAnalyzer', () => ({

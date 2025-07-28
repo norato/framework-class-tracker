@@ -1,14 +1,14 @@
 # framework-class-tracker
 
-A CLI tool to scan your project files and identify which CSS classes from a specific framework (currently Bootstrap) are actually in use. Generates a text report of used utility classes to help reduce unused styles and optimize performance.
+A CLI tool to scan your project files and identify which CSS classes from a specific framework (currently Bootstrap) are actually in use. It can generate a simple text report or a lint-style output to help you track class usage and optimize your CSS.
 
 ## ✅ Features
 
-- Parse files in a given `--src` directory to detect used class names
-- Compare used classes against the selected framework (default: Bootstrap)
-- Supports custom `--frameworkPath` for CSS source
-- Outputs a `.txt` report listing all matched classes
-- CLI-friendly with clear error messages and output logs
+- Parse files in a given `--src` directory to detect used class names.
+- Compare used classes against the selected framework (default: Bootstrap).
+- Supports custom `--frameworkPath` for CSS source.
+- **Two report types**: a simple `.txt` file or a `lint-style` terminal output.
+- CLI-friendly with clear error messages and output logs.
 
 ## 📦 Installation
 
@@ -26,9 +26,34 @@ pnpm add -D framework-class-tracker
 
 ## 🚀 Usage
 
+By default, the tool generates a `framework-report.txt` file:
+
 ```bash
 framework-class-tracker --src=./src
 ```
+
+### Lint-Style Report
+
+To get a lint-style output in your terminal, use the `--reporter=lint` flag:
+
+```bash
+framework-class-tracker --src=./src --reporter=lint
+```
+
+This will print a list of all used classes, grouped by class name, with the file and line number where each class is used. This is useful for quickly finding where a class is being used in your project.
+
+Example output:
+
+```
+Class: btn
+  src/components/Button.ts:10 - class: btn
+  src/pages/Home.ts:42 - class: btn
+
+Class: btn-primary
+  src/components/Button.ts:10 - class: btn-primary
+```
+
+### Custom CSS Source
 
 You can also specify the CSS source manually:
 
@@ -36,26 +61,13 @@ You can also specify the CSS source manually:
 framework-class-tracker --src=./src --frameworkPath=./node_modules/bootstrap/dist/css
 ```
 
-This will scan your project files under `./src`, extract class names, compare them to the classes from the CSS files provided, and generate a report file like:
-
-```
-##### bootstrap classes #####
-btn
-btn-primary
-d-flex
-mt-3
-...
-```
-
-The report is saved as `framework-report.txt` in the root directory.
-
 ## 🧠 How it works
 
 1. Scans all supported source files recursively inside the `--src` folder.
-2. Extracts class names using a pluggable parser per file type.
+2. Extracts class names and their locations (file and line number).
 3. Loads and parses the target framework's CSS files.
 4. Compares the class names found with those available in the framework.
-5. Generates a clean `.txt` file listing only the matched ones.
+5. Generates a report in the specified format (`text` or `lint`).
 
 ## 🛠 Supported frameworks
 
@@ -81,7 +93,12 @@ Clone and run locally:
 
 ```bash
 pnpm install
-pnpm dev
+```
+
+To build the project:
+
+```bash
+pnpm build
 ```
 
 To test locally in another project:
@@ -89,8 +106,9 @@ To test locally in another project:
 ```bash
 pnpm build
 npm link
-# Then run in another repo:
-framework-class-tracker --src=./src
+
+# Then, in another repository:
+framework-class-tracker --src=./src --reporter=lint
 ```
 
 Run tests:

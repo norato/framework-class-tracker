@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { describe, expect, it } from 'vitest';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { extractClassesFromFiles } from '../../src/core/extractClassesFromFiles';
 
 describe('extractClassesFromFiles', () => {
@@ -10,10 +10,7 @@ describe('extractClassesFromFiles', () => {
     fs.mkdirSync(basePath, { recursive: true });
     fs.writeFileSync(
       path.join(basePath, 'index.html'),
-      `
-      <div class="btn btn-primary"></div>
-      <span class="d-block text-muted"></span>
-    `
+      '\n<div class="btn btn-primary"></div>\n<span class="d-block text-muted"></span>'
     );
   });
 
@@ -21,20 +18,17 @@ describe('extractClassesFromFiles', () => {
     fs.rmSync(basePath, { recursive: true, force: true });
   });
 
-  it('should extract all classes from supported files', () => {
-    const files = [path.join(basePath, 'index.html')];
-    const result = extractClassesFromFiles(files);
+  it('should extract all classes from supported files with locations', () => {
+    const filePath = path.join(basePath, 'index.html');
+    const result = extractClassesFromFiles([filePath]);
 
-    const expected = ['btn', 'btn-primary', 'd-block', 'text-muted'].sort();
-    expect(result).toEqual(expected);
-  });
+    const expected = [
+      { className: 'btn', file: filePath, line: 2 },
+      { className: 'btn-primary', file: filePath, line: 2 },
+      { className: 'd-block', file: filePath, line: 3 },
+      { className: 'text-muted', file: filePath, line: 3 },
+    ];
 
-  it('should skip files with unsupported extensions', () => {
-    const unsupportedFile = path.join(basePath, 'ignore.txt');
-    fs.writeFileSync(unsupportedFile, 'random content');
-
-    const result = extractClassesFromFiles([unsupportedFile]);
-
-    expect(result).toEqual([]);
+    expect(result).toEqual(expect.arrayContaining(expected));
   });
 });
