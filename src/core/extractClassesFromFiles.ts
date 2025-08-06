@@ -1,9 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import {
-  extractClassesFromHtml,
-  type ClassLocation,
-} from '../parsers/htmlParser';
+import { extractClassesFromHtml, type ClassLocation } from '../parsers/htmlParser';
 
 export interface ClassUsage extends ClassLocation {
   file: string;

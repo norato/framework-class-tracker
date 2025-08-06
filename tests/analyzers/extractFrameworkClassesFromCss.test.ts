@@ -24,14 +24,10 @@ describe('extractFrameworkClassesFromCss', () => {
   it('should extract all unique class names from CSS content', () => {
     const result = extractFrameworkClassesFromCss(cssPath);
 
-    expect(result).toEqual(
-      new Set(['btn', 'btn-primary', 'd-block', 'mt-2', 'col-12'])
-    );
+    expect(result).toEqual(new Set(['btn', 'btn-primary', 'd-block', 'mt-2', 'col-12']));
   });
 
   it('should throw an error if the CSS file does not exist', () => {
-    expect(() => extractFrameworkClassesFromCss('non-existent.css')).toThrow(
-      /CSS file not found/
-    );
+    expect(() => extractFrameworkClassesFromCss('non-existent.css')).toThrow(/CSS file not found/);
   });
 });

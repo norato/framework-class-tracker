@@ -15,9 +15,7 @@ describe('generateLintStyleReport', () => {
     generateLintStyleReport(usages);
 
     expect(consoleMock).toHaveBeenCalledWith(`\n${yellow('Class:')} ${bold('btn')}`);
-    expect(consoleMock).toHaveBeenCalledWith(
-      `  ${gray('src/Button.ts:10')} - ${yellow('class: btn')}`
-    );
+    expect(consoleMock).toHaveBeenCalledWith(`  ${gray('src/Button.ts:10')} - ${yellow('class: btn')}`);
 
     consoleMock.mockRestore();
   });

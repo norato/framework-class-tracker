@@ -17,9 +17,7 @@ describe('extractClassesFromFramework', () => {
   });
 
   it('should throw if framework is not supported', () => {
-    expect(() =>
-      extractClassesFromFramework({ framework: 'bulma' as any })
-    ).toThrow(/Unsupported framework/);
+    expect(() => extractClassesFromFramework({ framework: 'bulma' as any })).toThrow(/Unsupported framework/);
   });
 
   it('should extract classes from a provided CSS file', () => {
@@ -47,7 +45,7 @@ describe('extractClassesFromFramework', () => {
       extractClassesFromFramework({
         framework: 'bootstrap',
         frameworkPath: './fake/path/to/css',
-      })
+      }),
     ).toThrow(/Framework path not found/);
   });
 
@@ -58,7 +56,7 @@ describe('extractClassesFromFramework', () => {
       extractClassesFromFramework({
         framework: 'bootstrap',
         frameworkPath: invalidTxt,
-      })
+      }),
     ).toThrow(/Invalid framework path/);
   });
 });

@@ -23,10 +23,7 @@ export function extractClassesFromFramework(options: {
   return combined;
 }
 
-function resolveFrameworkPaths(
-  framework: string,
-  customPath?: string
-): string[] {
+function resolveFrameworkPaths(framework: string, customPath?: string): string[] {
   if (customPath) {
     const absolutePath = path.resolve(process.cwd(), customPath);
 
@@ -46,20 +43,14 @@ function resolveFrameworkPaths(
         .map((file) => path.join(absolutePath, file));
     }
 
-    throw new Error(
-      `Invalid framework path: must be a CSS file or a directory with CSS files`
-    );
+    throw new Error(`Invalid framework path: must be a CSS file or a directory with CSS files`);
   }
 
   switch (framework) {
     case 'bootstrap':
-      return [
-        path.resolve('node_modules/bootstrap/dist/css/bootstrap.min.css'),
-      ];
+      return [path.resolve('node_modules/bootstrap/dist/css/bootstrap.min.css')];
     case 'materialize':
-      return [
-        path.resolve('node_modules/materialize-css/dist/css/materialize.min.css'),
-      ];
+      return [path.resolve('node_modules/materialize-css/dist/css/materialize.min.css')];
     // case 'tailwind':
     //   return [path.resolve('node_modules/tailwindcss/tailwind.css')];
     default:

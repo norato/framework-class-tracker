@@ -1,10 +1,7 @@
 #!/usr/bin/env node
 
 import path from 'path';
-import {
-  extractClassesFromFramework,
-  SupportedFramework,
-} from '../analyzers/frameworkAnalyzer';
+import { extractClassesFromFramework, SupportedFramework } from '../analyzers/frameworkAnalyzer';
 import { extractClassesFromFiles } from '../core/extractClassesFromFiles';
 import { generateLintStyleReport } from '../reporters/lintStyleReporter';
 import { generateTextReport } from '../reporters/textReporter';
@@ -12,8 +9,7 @@ import { abort, getArgValue, logStep } from '../utils/cli-utils';
 import { scanFiles } from '../utils/scanFiles';
 
 const src = getArgValue('src');
-const framework = (getArgValue('framework') ??
-  'bootstrap') as SupportedFramework;
+const framework = (getArgValue('framework') ?? 'bootstrap') as SupportedFramework;
 const frameworkPath = getArgValue('frameworkPath');
 const reporter = getArgValue('reporter') ?? 'text';
 
@@ -34,9 +30,7 @@ const frameworkClasses = extractClassesFromFramework({
 });
 
 logStep(`Matching used classes against framework classes...`);
-const matchedClasses = usedClasses.filter((cls) =>
-  frameworkClasses.has(cls.className)
-);
+const matchedClasses = usedClasses.filter((cls) => frameworkClasses.has(cls.className));
 
 logStep(`Generating report...`);
 

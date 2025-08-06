@@ -11,10 +11,7 @@ describe('scanFiles', () => {
     fs.mkdirSync(nestedPath, { recursive: true });
 
     // arquivos válidos
-    fs.writeFileSync(
-      path.join(basePath, 'index.html'),
-      '<div class="btn"></div>'
-    );
+    fs.writeFileSync(path.join(basePath, 'index.html'), '<div class="btn"></div>');
     fs.writeFileSync(path.join(basePath, 'main.ts'), 'console.log("ok")');
     fs.writeFileSync(path.join(basePath, 'style.scss'), '.btn { color: red; }');
 
@@ -24,10 +21,7 @@ describe('scanFiles', () => {
 
     // arquivos ocultos e pasta aninhada
     fs.writeFileSync(path.join(basePath, '.hidden.ts'), '// hidden file');
-    fs.writeFileSync(
-      path.join(nestedPath, 'component.html'),
-      '<div class="text-center"></div>'
-    );
+    fs.writeFileSync(path.join(nestedPath, 'component.html'), '<div class="text-center"></div>');
     fs.writeFileSync(path.join(nestedPath, 'ignored.txt'), 'ignore me');
   });
 
@@ -45,7 +39,7 @@ describe('scanFiles', () => {
         expect.stringMatching(/style\.scss$/),
         expect.stringMatching(/component\.html$/),
         expect.stringMatching(/\.hidden\.ts$/),
-      ])
+      ]),
     );
 
     expect(result).not.toEqual(
@@ -53,7 +47,7 @@ describe('scanFiles', () => {
         expect.stringMatching(/README\.md$/),
         expect.stringMatching(/config\.json$/),
         expect.stringMatching(/ignored\.txt$/),
-      ])
+      ]),
     );
   });
 
@@ -66,9 +60,7 @@ describe('scanFiles', () => {
 
   it('should include files from nested directories', () => {
     const result = scanFiles(basePath);
-    const hasNested = result.some((file) =>
-      file.includes(path.join('nested', 'component.html'))
-    );
+    const hasNested = result.some((file) => file.includes(path.join('nested', 'component.html')));
     expect(hasNested).toBe(true);
   });
 });

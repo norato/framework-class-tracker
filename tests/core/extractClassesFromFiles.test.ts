@@ -10,7 +10,7 @@ describe('extractClassesFromFiles', () => {
     fs.mkdirSync(basePath, { recursive: true });
     fs.writeFileSync(
       path.join(basePath, 'index.html'),
-      '\n<div class="btn btn-primary"></div>\n<span class="d-block text-muted"></span>'
+      '\n<div class="btn btn-primary"></div>\n<span class="d-block text-muted"></span>',
     );
   });
 

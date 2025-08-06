@@ -1,7 +1,5 @@
 export function getArgValue(name: string): string | undefined {
-  return process.argv
-    .find((arg) => arg.startsWith(`--${name}=`))
-    ?.split('=')[1];
+  return process.argv.find((arg) => arg.startsWith(`--${name}=`))?.split('=')[1];
 }
 
 export function logStep(message: string) {
