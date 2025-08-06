@@ -40,28 +40,19 @@ describe('CLI', () => {
   });
 
   it('should call all internal modules with correct arguments', async () => {
-    process.argv = [
-      'node',
-      'cli.js',
-      '--src=tests/fixtures/sample-html',
-      '--framework=bootstrap',
-    ];
+    process.argv = ['node', 'cli.js', '--src=tests/fixtures/sample-html', '--framework=bootstrap'];
 
     await import('../../src/cli/index');
 
-    expect(scan.scanFiles).toHaveBeenCalledWith(
-      expect.stringContaining('sample-html')
-    );
-    expect(extract.extractClassesFromFiles).toHaveBeenCalledWith([
-      'file1.html',
-    ]);
+    expect(scan.scanFiles).toHaveBeenCalledWith(expect.stringContaining('sample-html'));
+    expect(extract.extractClassesFromFiles).toHaveBeenCalledWith(['file1.html']);
     expect(analyzer.extractClassesFromFramework).toHaveBeenCalledWith({
       framework: 'bootstrap',
     });
     expect(reporter.generateTextReport).toHaveBeenCalledWith(
       ['btn', 'mt-2'],
       expect.stringContaining('framework-report.txt'),
-      'bootstrap classes'
+      'bootstrap classes',
     );
   });
 
@@ -70,9 +61,7 @@ describe('CLI', () => {
 
     await expect(import('../../src/cli/index')).rejects.toThrow('process.exit');
 
-    expect(errorSpy).toHaveBeenCalledWith(
-      expect.stringContaining('Missing --src argument')
-    );
+    expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('Missing --src argument'));
     expect(exitSpy).toHaveBeenCalledWith(1);
     expect(scan.scanFiles).not.toHaveBeenCalled();
     expect(extract.extractClassesFromFiles).not.toHaveBeenCalled();

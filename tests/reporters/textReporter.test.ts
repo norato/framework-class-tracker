@@ -15,11 +15,7 @@ describe('generateTextReport', () => {
   });
 
   it('should generate a report with a dynamic title and framework classes', () => {
-    generateTextReport(
-      ['btn', 'btn-primary', 'd-block'],
-      outputPath,
-      'Utility classes'
-    );
+    generateTextReport(['btn', 'btn-primary', 'd-block'], outputPath, 'Utility classes');
 
     const content = fs.readFileSync(outputPath, 'utf-8');
 

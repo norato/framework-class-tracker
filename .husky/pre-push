@@ -1,0 +1,29 @@
+#!/bin/sh
+
+echo "🔍 Running pre-push checks..."
+
+# Run prettier check
+echo "📝 Checking code formatting..."
+pnpm prettier --check "src/**/*.ts" "tests/**/*.ts"
+if [ $? -ne 0 ]; then
+  echo "❌ Code formatting issues found. Run 'pnpm prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"' to fix."
+  exit 1
+fi
+
+# Run tests
+echo "🧪 Running tests..."
+pnpm test
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed. Please fix the failing tests before pushing."
+  exit 1
+fi
+
+# Run build
+echo "🔨 Building project..."
+pnpm build
+if [ $? -ne 0 ]; then
+  echo "❌ Build failed. Please fix the build errors before pushing."
+  exit 1
+fi
+
+echo "✅ All pre-push checks passed!"
