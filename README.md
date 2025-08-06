@@ -53,6 +53,10 @@ Class: btn-primary
   src/components/Button.ts:10 - class: btn-primary
 ```
 
+### Screenshot
+
+![Framework Class Tracker Output](./example.jpeg)
+
 ### Using Materialize Framework
 
 To analyze Materialize CSS classes instead of Bootstrap:
