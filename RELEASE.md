@@ -25,12 +25,14 @@ pnpm release:minor
 pnpm release:major
 ```
 
-These scripts will:
-1. Update the version in package.json
-2. Create a git commit with the version change
-3. Create a git tag
-4. Push the tag to GitHub
-5. Trigger the automated npm publish
+These scripts will automatically:
+1. Run tests (via `preversion` hook)
+2. Build the project
+3. Update the version in package.json
+4. Create a git commit with the version change
+5. Create a git tag (e.g., `v1.3.0`)
+6. Push both the commit and tag to GitHub (via `postversion` hook)
+7. Trigger the GitHub Actions workflow for npm publishing
 
 ### Option 2: Manual Process
 

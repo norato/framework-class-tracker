@@ -11,10 +11,11 @@
     "test:watch": "vitest --coverage",
     "build": "tsup",
     "link": "pnpm build && pnpm link --global",
-    "release": "pnpm build && git tag v$(node -p \"require('./package.json').version\") && git push origin v$(node -p \"require('./package.json').version\")",
-    "release:patch": "npm version patch && pnpm release",
-    "release:minor": "npm version minor && pnpm release",
-    "release:major": "npm version major && pnpm release"
+    "release:patch": "npm version patch",
+    "release:minor": "npm version minor",
+    "release:major": "npm version major",
+    "preversion": "pnpm test && pnpm build",
+    "postversion": "git push --follow-tags origin"
   },
   "keywords": [
     "css",
