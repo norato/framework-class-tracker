@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { extractFrameworkClassesFromCss } from './extractFrameworkClassesFromCss';
 
-export type SupportedFramework = 'bootstrap';
+export type SupportedFramework = 'bootstrap' | 'materialize';
 // | 'tailwind';
 
 export function extractClassesFromFramework(options: {
@@ -55,6 +55,10 @@ function resolveFrameworkPaths(
     case 'bootstrap':
       return [
         path.resolve('node_modules/bootstrap/dist/css/bootstrap.min.css'),
+      ];
+    case 'materialize':
+      return [
+        path.resolve('node_modules/materialize-css/dist/css/materialize.min.css'),
       ];
     // case 'tailwind':
     //   return [path.resolve('node_modules/tailwindcss/tailwind.css')];

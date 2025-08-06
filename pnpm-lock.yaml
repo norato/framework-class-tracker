@@ -26,6 +26,9 @@ importers:
       execa:
         specifier: ^9.6.0
         version: 9.6.0
+      materialize-css:
+        specifier: ^1.0.0
+        version: 1.0.0
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
@@ -869,6 +872,9 @@ packages:
   make-dir@4.0.0:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
     engines: {node: '>=10'}
+
+  materialize-css@1.0.0:
+    resolution: {integrity: sha512-4/oecXl8y/1i8RDZvyvwAICyqwNoKU4or5uf8uoAd74k76KzZ0Llym4zhJ5lLNUskcqjO0AuMcvNyDkpz8Z6zw==}
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -2022,6 +2028,8 @@ snapshots:
   make-dir@4.0.0:
     dependencies:
       semver: 7.7.2
+
+  materialize-css@1.0.0: {}
 
   minimatch@3.1.2:
     dependencies:

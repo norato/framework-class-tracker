@@ -53,6 +53,14 @@ Class: btn-primary
   src/components/Button.ts:10 - class: btn-primary
 ```
 
+### Using Materialize Framework
+
+To analyze Materialize CSS classes instead of Bootstrap:
+
+```bash
+framework-class-tracker --src=./src --framework=materialize
+```
+
 ### Custom CSS Source
 
 You can also specify the CSS source manually:
@@ -74,6 +82,7 @@ framework-class-tracker --src=./src --frameworkPath=./node_modules/bootstrap/dis
 Currently supported:
 
 - `bootstrap` (default)
+- `materialize`
 
 More to come (planned):
 
