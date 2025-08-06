@@ -1,14 +1,31 @@
 # framework-class-tracker
 
-A CLI tool to scan your project files and identify which CSS classes from a specific framework (currently Bootstrap) are actually in use. It can generate a simple text report or a lint-style output to help you track class usage and optimize your CSS.
+A CLI tool to scan your project files and identify which CSS classes from a specific framework (Bootstrap, Materialize) are actually in use. Perfect for cleaning up unused CSS classes and optimizing your stylesheets!
+
+## 🎯 Lint-Style Output with Clickable Links
+
+![Framework Class Tracker Output](./example.jpeg)
+
+The **lint reporter** shows exactly where each CSS class is used in your codebase with clickable file paths that open directly in your editor!
 
 ## ✅ Features
 
-- Parse files in a given `--src` directory to detect used class names.
-- Compare used classes against the selected framework (default: Bootstrap).
-- Supports custom `--frameworkPath` for CSS source.
-- **Two report types**: a simple `.txt` file or a `lint-style` terminal output.
-- CLI-friendly with clear error messages and output logs.
+- 🔍 **Smart Class Detection**: Scans all your source files to find used CSS classes
+- 📍 **Precise Location Tracking**: Shows exact file paths and line numbers
+- 🎨 **Multi-Framework Support**: Bootstrap and Materialize CSS (more coming soon!)
+- 📝 **Two Report Modes**:
+  - **Lint mode**: Terminal-friendly output with clickable links
+  - **Text mode**: Simple file report for documentation
+- 🚀 **Performance Focused**: Help identify and remove unused framework classes
+- 🎯 **Developer Friendly**: Clear, colorful output with actionable insights
+
+## 💡 Why Use This Tool?
+
+- **🎯 Find Dead Code**: Instantly identify which Bootstrap/Materialize classes are actually being used
+- **⚡ Optimize Bundle Size**: Remove unused CSS by knowing exactly what to keep
+- **🔍 Code Navigation**: Click on any file:line reference to jump directly to the code
+- **🧹 Clean Refactoring**: Safely remove framework dependencies with confidence
+- **📊 Migration Helper**: Perfect for transitioning between CSS frameworks
 
 ## 📦 Installation
 
@@ -24,33 +41,39 @@ To use in a local project:
 pnpm add -D framework-class-tracker
 ```
 
-## 🚀 Usage
+## 🚀 Quick Start
 
-By default, the tool generates a `framework-report.txt` file:
+### 🔥 Lint Mode (Recommended)
 
-```bash
-framework-class-tracker --src=./src
-```
-
-### Lint-Style Report
-
-To get a lint-style output in your terminal, use the `--reporter=lint` flag:
+Get instant, actionable output with clickable file paths:
 
 ```bash
 framework-class-tracker --src=./src --reporter=lint
 ```
 
-This will print a list of all used classes, grouped by class name, with the file and line number where each class is used. This is useful for quickly finding where a class is being used in your project.
+This shows:
 
-Example output:
+- ✅ Each CSS class found in your code
+- 📍 Exact file locations with line numbers
+- 🔗 Clickable paths that open in your editor
+- 🎨 Color-coded output for better readability
 
+### Text Report Mode
+
+For a simple file output:
+
+```bash
+framework-class-tracker --src=./src
 ```
-Class: btn
-  src/components/Button.ts:10 - class: btn
-  src/pages/Home.ts:42 - class: btn
 
-Class: btn-primary
-  src/components/Button.ts:10 - class: btn-primary
+This generates a `framework-report.txt` file with all the used classes.
+
+### Using Materialize Framework
+
+To analyze Materialize CSS classes instead of Bootstrap:
+
+```bash
+framework-class-tracker --src=./src --framework=materialize
 ```
 
 ### Screenshot
@@ -90,7 +113,6 @@ Currently supported:
 
 More to come (planned):
 
-- `tailwindcss`
 - `bulma`
 - `foundation`
 
