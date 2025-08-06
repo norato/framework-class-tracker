@@ -1,6 +1,6 @@
 {
   "name": "framework-class-tracker",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "description": "CLI tool to analyze and report used CSS classes in your project compared to framework classes (e.g., Bootstrap).",
   "main": "dist/index.js",
   "bin": {
