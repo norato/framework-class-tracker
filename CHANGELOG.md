@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.2.0] - 2025-08-06
+
+### ✨ New Features
+
+- **Materialize CSS Support:** Added support for Materialize CSS framework analysis alongside Bootstrap
+- **Multi-framework flexibility:** Can now track classes from multiple CSS frameworks with the `--framework` option
+- **Test fixtures:** Added Materialize HTML test fixture for framework validation
+
+### 🔧 Technical Improvements
+
+- Extended `SupportedFramework` type to include 'materialize' option
+- Added Materialize CSS package to dependencies for local resolution
+- Updated framework path resolution to handle Materialize CSS files
+- Enhanced documentation with Materialize usage examples
+
+### 📚 Documentation
+
+- Updated README with Materialize framework usage instructions
+- Added Materialize to keywords for better discoverability
+
 ## [1.1.0] - 2025-07-28
 
 ### ✨ New Features

@@ -1,6 +1,6 @@
 {
   "name": "framework-class-tracker",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "CLI tool to analyze and report used CSS classes in your project compared to framework classes (e.g., Bootstrap).",
   "main": "dist/index.js",
   "bin": {
@@ -15,6 +15,7 @@
   "keywords": [
     "css",
     "bootstrap",
+    "materialize",
     "cli",
     "class-tracker",
     "framework",
@@ -40,6 +41,7 @@
     "commander": "^14.0.0",
     "eslint": "^9.31.0",
     "execa": "^9.6.0",
+    "materialize-css": "^1.0.0",
     "prettier": "^3.6.2",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",

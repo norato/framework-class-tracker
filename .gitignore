@@ -2,3 +2,4 @@ node_modules/
 coverage/
 tests/reporters/__temp__/
 dist/
+framework-report.txt
